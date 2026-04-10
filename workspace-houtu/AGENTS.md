@@ -70,49 +70,35 @@ endpoints:
         email: string
 ```
 
-### 5. 输出设计文档
+### 5. 设置项目配置
 
-输出完整设计文档，保存到指定位置：
+在 projects.json 中设置项目信息：
+- 项目名称
+- 任务ID（来自 sessionKey 第四段）
+- 前端工程路径
+- 后端工程路径
+- 项目文档路径
+- 前端服务端口
+- 后端服务端口
 
-```markdown
-# design-doc.md 结构
+### 6. 输出设计文档
 
-## 1. 需求概述
-- 业务背景
-- 核心功能
-- 用户场景
+输出完整设计文档到 `{paths.docs}/{taskId}/` 目录：
 
-## 2. 架构设计
-- 模块划分图
-- 数据流图
-- 技术选型
+| 文档 | 文件名 | 内容 |
+|------|--------|------|
+| 产品说明 | `product.md` | 业务背景、核心功能、用户场景、功能说明 |
+| 测试用例 | `test-cases.md` | 测试场景、测试步骤、预期结果 |
+| 接口文档 | `api.md` | API endpoint 定义、Request/Response schema，供前后端联调 |
 
-## 3. API 契约
-- endpoint 定义
-- Request/Response schema
-
-## 4. 数据库设计
-- 表结构
-- 索引设计
-
-## 5. UI 设计规范
-- 页面结构
-- 组件规范
-- 交互流程
-
-## 6. 开发注意事项
-- 关键约束
-- 风险提示
-```
-
-### 6. 结果反馈
+### 7. 结果反馈
 
 通过 `forward` 向谢逊汇报结果：
 
 ```json
 {
   "to": "xiexun",
-  "content": "架构设计完成\n\n- 设计文档：<文档路径>\n- API 契约：<契约文件路径>\n- 关键决策：<重要设计决策摘要>\n- 请安排锐金旗和巨木旗并行开发"
+  "content": "架构设计完成\n\n- 项目配置已设置：<项目ID>\n- 产品说明：{paths.docs}/{taskId}/product.md\n- 测试用例：{paths.docs}/{taskId}/test-cases.md\n- 接口文档：{paths.docs}/{taskId}/api.md\n- 请安排锐金旗和巨木旗并行开发"
 }
 ```
 
@@ -140,12 +126,54 @@ endpoints:
 
 ## 项目配置
 
-任务开始前读取：
-- 配置文件：`/root/workspace/guangmingding/projects.json`
-- 解析 `currentProject` 获取当前项目
-- 从 `projects[currentProject].paths` 获取前端/后端/docs 路径
-- 文档输出到：`{paths.docs}/{taskId}/`
-- taskId 来自 sessionKey 第四段
+**厚土旗负责设置 projects.json 项目信息！**
+
+配置文件：`/root/workspace/openclaw/projects.json`
+
+### 设置项目信息
+
+收到任务后，在 projects.json 中添加项目配置：
+
+```json
+{
+  "currentProject": "<项目ID>",
+  "currentTask": "<taskId>",
+  "projects": {
+    "<项目ID>": {
+      "name": "<项目名称>",
+      "taskId": "<taskId>",
+      "paths": {
+        "frontend": "<前端工程路径>",
+        "backend": "<后端工程路径>",
+        "docs": "<项目文档路径>"
+      },
+      "ports": {
+        "frontend": <前端服务端口>,
+        "backend": <后端服务端口>
+      }
+    }
+  },
+  "tasks": {
+    "<taskId>": {
+      "project": "<项目ID>",
+      "name": "<任务名称>",
+      "assignee": "houtu",
+      "status": "in_progress"
+    }
+  }
+}
+```
+
+### 文档输出
+
+文档统一输出到：`{paths.docs}/{taskId}/`
+
+必输出文档：
+| 文档 | 文件名 | 用途 |
+|------|--------|------|
+| 产品说明 | `product.md` | 业务需求、用户场景、功能说明 |
+| 测试用例 | `test-cases.md` | 测试场景、测试步骤、预期结果 |
+| 接口文档 | `api.md` | API endpoint、Request/Response schema，供前后端联调 |
 
 ---
 
