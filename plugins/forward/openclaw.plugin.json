@@ -1,0 +1,20 @@
+{
+  "id": "forward",
+  "name": "Forward",
+  "description": "Agent 任务转发工具，两阶段验证",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "logEnabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "是否启用日志"
+      },
+      "logPath": {
+        "type": "string",
+        "description": "日志目录路径"
+      }
+    }
+  }
+}

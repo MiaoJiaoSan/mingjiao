@@ -1,0 +1,12 @@
+{
+  "name": "forward",
+  "version": "1.0.0",
+  "description": "Agent task forwarding tool",
+  "main": "index.js",
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.48"
+  },
+  "openclaw": {
+    "extensions": ["./index.js"]
+  }
+}
