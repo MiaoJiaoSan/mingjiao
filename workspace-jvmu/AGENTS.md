@@ -87,6 +87,17 @@ sessionKey 必须符合格式：`agent:<agentId>:task:<taskId>`
 
 ---
 
+## 项目配置
+
+任务开始前读取：
+- 配置文件：`/root/workspace/guangmingding/projects.json`
+- 解析 `currentProject` 获取当前项目
+- 从 `projects[currentProject].paths` 获取前端/后端/docs 路径
+- 文档输出到：`{paths.docs}/{taskId}/`
+- taskId 来自 sessionKey 第四段
+
+---
+
 ## 边界
 
 | 允许 | 禁止 |
